@@ -7,10 +7,9 @@ let weatherApi = "https://api.weather.gov/alerts/active?area="
 
 function getData() {
     const state = document.getElementById("state-input").value;
-    const target = document.getElementById("testing");
     const displayTarget = document.getElementById("alerts-display");
+    const displayTesting = document.getElementById("testing");
     weatherApi = `https://api.weather.gov/alerts/active?area=${state}`;
-    //displayTarget.textContent = weatherApi;
     fetch(weatherApi)
         .then(response => response.json())
         .then(data => {
@@ -18,7 +17,15 @@ function getData() {
             const alerts = data.features;
             const numAlerts = alerts.length;
             displayTarget.textContent = `${dataTitle}: ${numAlerts}`;
+            const alertList = document.createElement("ul");
+            displayTarget.appendChild(alertList);
+            alerts.forEach(alert => {
+                const li = document.createElement("li");
+                li.textContent = alert.properties.headline;
+                alertList.appendChild(li);
+            });
         })
+    
 }
 
 document.getElementById("fetch-alerts").addEventListener('click', getData);
