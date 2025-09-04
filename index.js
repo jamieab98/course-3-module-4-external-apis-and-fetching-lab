@@ -8,7 +8,6 @@ let weatherApi = "https://api.weather.gov/alerts/active?area="
 function getData() {
     const state = document.getElementById("state-input").value;
     const displayTarget = document.getElementById("alerts-display");
-    const displayTesting = document.getElementById("testing");
     weatherApi = `https://api.weather.gov/alerts/active?area=${state}`;
     fetch(weatherApi)
         .then(response => response.json())
